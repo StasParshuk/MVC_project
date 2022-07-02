@@ -1,5 +1,27 @@
 {
+    "name": "stas/untitled1",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Model\\": "app/model",
+            "view\\": "app/view",
+            "controller\\": "app/controller",
+            "config\\": "config/",
+            "core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stas Parshuk",
+            "email": "stasparsuk@gmail.com"
+        }
+        ],
     "require": {
-        "larapack/dd": "^1.1"
+        "larapack/dd": "^1.1",
+        "vlucas/phpdotenv": "^5.4",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.1"
     }
 }

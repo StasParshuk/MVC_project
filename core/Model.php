@@ -28,3 +28,4 @@ abstract class Model
         return self::$connect;
     }
 }
+

@@ -42,12 +42,15 @@ class Router
                     $controller = new $controller;
                     $action = $this->params["action"];
                     unset($this->params["action"]);
+                    if ($controller->before($action)){
                     call_user_func_array([$controller, $action], $this->params);
+                    $controller->after($action);
+                    }
                 } else throw new Exception("action {$this->params["action"]} not found",);
 
             } else throw new Exception("Controller class {$this->params["controller"]} not found",);
 
-        } else throw new Exception("No route match", 404);
+        } else throw new Exception("No route match ", 404);
     }
 
     protected function remove_query_string_variables(string $url): string

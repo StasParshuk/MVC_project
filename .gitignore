@@ -2,3 +2,4 @@ vendor/
 .env
 /.gitignore
 .idea/
+/public/assets/libs/bootstrap/

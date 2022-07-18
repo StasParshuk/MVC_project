@@ -2,6 +2,7 @@
 
 namespace core\traits;
 
+use core\Model;
 use PDO;
 
 trait QueryTrait
@@ -51,37 +52,19 @@ trait QueryTrait
 //        }
 //    }
 
-    public static function find_by($column, $value)
+    public static function find_by($column, $value):object
     {
-        switch ($column) {
-            case "id":
-                $query = "select * from " . static::$tableName . " where id = :value ";
-                break;
-            case "name":
-                $query = "select * from " . static::$tableName . " where name = :value ";
-                break;
-            case "surname":
-                $query = "select * from " . static::$tableName . " where surname = :value ";
-                break;
-            case "email":
-                $query = "select * from " . static::$tableName . " where email = :value ";
-                break;
-            case "password":
-                $query = "select * from " . static::$tableName . " where password = :value ";
-                break;
-            case "birthdate":
-                $query = "select * from " . static::$tableName . " where birthdate = :value ";
-                break;
-        }
+
+        $query = "select * from " . static::$tableName . " where $column = ? ";
 
         $query = static::connect()->prepare($query);
-        $query->bindValue(":value", $value);
+        $query->bindValue(1, $value);
         $query->execute();
 
         return $query->fetchObject(static::class);
     }
 
-    public static function create_user(string $name, $surname, string $email, string $password, string $birthdate): int
+    public static function create_user(string $name, string $surname, string $email, string $password, string $birthdate): int
     {
 
         $query = "INSERT INTO  " . static::$tableName . " (name, surname, email, password, birthdate)  VALUES (?, ?, ?, ?, ?) ";
@@ -136,7 +119,7 @@ trait QueryTrait
 
     }
 
-    public static function select()
+    public static function select():Model
     {
         return new static ;
     }
@@ -153,17 +136,17 @@ trait QueryTrait
         ];пример вводимого массива
          */
 
-        $query = "select " .$columnOperatorValue["select"] . " from " .   static::$tableName . " where " . $columnOperatorValue["column"] . " " . $columnOperatorValue["operator"] . " ? "  ;
+        $query = "select " .$columnOperatorValue["0"] . " from " .   static::$tableName . " where " . $columnOperatorValue["1"] . " " . $columnOperatorValue["2"] . " ? "  ;
 
         $query = static::connect()->prepare($query);
 
-        $query->bindValue(1, $columnOperatorValue["value"] );
+        $query->bindValue(1, $columnOperatorValue["3"] );
         $query->execute();
 
-        if (!empty( $result = $query->fetchAll(PDO::FETCH_CLASS, static::class)  )){
+        return $query->fetchAll(PDO::FETCH_CLASS, static::class);
 
-             return $result;
-        }else throw new \Exception("not found");
+
+
     }
 
 }

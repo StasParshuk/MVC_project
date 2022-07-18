@@ -2,7 +2,9 @@
 
 namespace App\controller;
 
-class PostsController
+use core\Model;
+
+class PostsController extends Model
 {
     public function show(int $id)
     {

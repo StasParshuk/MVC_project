@@ -8,7 +8,8 @@
             "controller\\": "app/controller",
             "config\\": "config/",
             "core\\": "core/"
-        }
+        },
+        "files": ["config/function.php"]
     },
     "authors": [
         {

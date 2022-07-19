@@ -9,8 +9,11 @@ class CategoriesController extends BaseController
 {
     public function index()
     {
-        $categories = Categories::all();
-        dd($categories);
+        $_SESSION["posts"] = Categories::all();
+
+
+
+        View::render("category/all-category");
     }
     public function create()
     {
@@ -30,6 +33,25 @@ class CategoriesController extends BaseController
 
         redirect("category/create");
     }
+    public function show($id)
+    {
 
+        $_SESSION["category"] = Categories::find_by("id",$id);
+        View::render("category/one-category");
+    }
+    public function edit($id)
+    {
+        View::render("category/edit-category");
+    }
+    public function update($id){
+        dd($_SESSION,$_POST,$_FILES);
+        Categories::select()->update_users();
+
+    }
+
+public function destroy($id){
+    $_SESSION["show_delete"] = Categories::delete($_SESSION["posts"]->id);
+    redirect("category/". $_SESSION["category"]->id . "/edit") ;
+}
 }
 

@@ -24,16 +24,13 @@ View::render("layout/navbar")?>
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="file" name="image" class="form-control"  accept=".png,.jpeg" >
+                    <input type="file" name="fileToUpload" class="form-control"  accept=".png,.jpeg" >
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select name="categories" class="form-select" id="floatingSelectGrid">
-                        <option value="0">Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select name="category_id" class="form-select" id="floatingSelectGrid">
+                        <option value="1">dogs</option>
                     </select>
                     <label for="floatingSelectGrid">Works with selects</label>
                 </div>

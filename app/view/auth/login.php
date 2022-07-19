@@ -1,7 +1,6 @@
 <?php
 
 use core\View;
-var_dump( $data["password"]);
   View::render("layout/header");
 View::render("layout/navbar")?>
 <div class="container card align-content-center justify-content-center">

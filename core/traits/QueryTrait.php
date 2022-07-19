@@ -29,30 +29,8 @@ trait QueryTrait
         return $query->fetchObject(static::class);
     }
 
-//    protected function choice_column($column){
-//        switch ($column) {
-//            case "id":
-//                $query = "select * from " . static::$tableName . " where id = :value ";
-//                break;
-//            case "name":
-//                $query = "select * from " . static::$tableName . " where name = :value ";
-//                break;
-//            case "surname":
-//                $query = "select * from " . static::$tableName . " where surname = :value ";
-//                break;
-//            case "email":
-//                $query = "select * from " . static::$tableName . " where email = :value ";
-//                break;
-//            case "password":
-//                $query = "select * from " . static::$tableName . " where password = :value ";
-//                break;
-//            case "birthdate":
-//                $query = "select * from " . static::$tableName . " where birthdate = :value ";
-//                break;
-//        }
-//    }
 
-    public static function find_by($column, $value):object
+    public static function find_by($column, $value): object
     {
 
         $query = "select * from " . static::$tableName . " where $column = ? ";
@@ -115,38 +93,42 @@ trait QueryTrait
 
         $query->bindValue(":id", $id, PDO::PARAM_INT);
 
-        return $query->execute();
-
+        $query->execute();
+        return $query->rowCount();
     }
 
-    public static function select():Model
+    public static function select(): Model
     {
-        return new static ;
+        return new static;
     }
 
     public function where(array $columnOperatorValue)
     {
         /**
          * $columnOperatorValue = [
-        "select"=>"*",
-        "column"=>"email",
-        "operator"=>"=",
-        "value"=>"1234@sdf"
-
-        ];пример вводимого массива
+         * "select"=>"*",
+         * "column"=>"email",
+         * "operator"=>"=",
+         * "value"=>"1234@sdf"
+         *
+         * ];пример вводимого массива
          */
 
-        $query = "select " .$columnOperatorValue["0"] . " from " .   static::$tableName . " where " . $columnOperatorValue["1"] . " " . $columnOperatorValue["2"] . " ? "  ;
+        $query = "select " . $columnOperatorValue["0"] . " from " . static::$tableName . " where " . $columnOperatorValue["1"] . " " . $columnOperatorValue["2"] . " ? ";
 
         $query = static::connect()->prepare($query);
 
-        $query->bindValue(1, $columnOperatorValue["3"] );
+        $query->bindValue(1, $columnOperatorValue["3"]);
         $query->execute();
 
         return $query->fetchAll(PDO::FETCH_CLASS, static::class);
 
 
+    }
 
+    public function destroy()
+    {
+        return static::delete($this->id);
     }
 
 }

@@ -31,7 +31,7 @@ class LoginController extends Controller
     }
 
     public function logout(){
-        if (!SessionHelper::isUserLoginIn()){
+        if (SessionHelper::isUserLoginIn()){
             SessionHelper::destroy();
         }
 

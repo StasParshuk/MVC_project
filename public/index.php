@@ -7,7 +7,6 @@ use App\model\User;
 if (!session_id()){
     session_start();
 }
-
 try {
     $router = new \core\Router();
     require_once ROUTDIR . '/web.php';
